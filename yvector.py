@@ -87,5 +87,5 @@ class YVectorModel(nn.Module):
     def forward(self, x):
         return self.tdnn(self.encoder(x))
 
-waveform, sample_rate = torchaudio.load('/home/nikita/vk_challenge/LibriSpeech/dev-clean/6345/93302/6345-93302-0001.flac')
-print(YVectorModel()(waveform.repeat(3, 1).unsqueeze(1)))
+# waveform, sample_rate = torchaudio.load('/home/nikita/vk_challenge/LibriSpeech/dev-clean/6345/93302/6345-93302-0001.flac')
+# print(YVectorModel()(waveform.repeat(3, 1).unsqueeze(1)))
