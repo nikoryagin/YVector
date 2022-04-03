@@ -76,6 +76,13 @@ class YVectorEncoder(nn.Module):
 
         tsfe_3 = self.tfse_3(self.downsampling_filter_3(tfse_2))
 
+        #In some cases, len of time dimension doesn't match for these tensors, so we will cut tensors s.t they match in all dimesnions
+        min_time_dim = min([tsfe_3.shape[2], resid_1.shape[2], resid_2.shape[2], resid_3.shape[2]])
+        tsfe = tsfe[:, :, min_time_dim]
+        resid_1 = resid_1[:, :, min_time_dim]
+        resid_2 = resid_2[:, :, min_time_dim]
+        resid_3 = resid_3[:, :, min_time_dim]
+
         return torch.cat((tsfe_3, resid_1, resid_2, resid_3), dim = 1)
 
 class YVectorModel(nn.Module):
@@ -86,6 +93,3 @@ class YVectorModel(nn.Module):
 
     def forward(self, x):
         return self.tdnn(self.encoder(x))
-
-# waveform, sample_rate = torchaudio.load('/home/nikita/vk_challenge/LibriSpeech/dev-clean/6345/93302/6345-93302-0001.flac')
-# print(YVectorModel()(waveform.repeat(3, 1).unsqueeze(1)))
