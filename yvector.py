@@ -78,7 +78,7 @@ class YVectorEncoder(nn.Module):
 
         #In some cases, len of time dimension doesn't match for these tensors, so we will cut tensors s.t they match in all dimesnions
         min_time_dim = min([tsfe_3.shape[2], resid_1.shape[2], resid_2.shape[2], resid_3.shape[2]])
-        tsfe = tsfe[:, :, min_time_dim]
+        tsfe_3 = tsfe_3[:, :, min_time_dim]
         resid_1 = resid_1[:, :, min_time_dim]
         resid_2 = resid_2[:, :, min_time_dim]
         resid_3 = resid_3[:, :, min_time_dim]
